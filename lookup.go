@@ -2,8 +2,10 @@ package main
 
 import "C"
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"strings"
 )
@@ -21,7 +23,7 @@ func CallIPLookup(IPAddress *C.char) *C.char {
 
 func IPLookUPCall() bool {
 
-	url := "https://nodered.fierylab.io/go-or-no-go"
+	url := "https://api.ipregistry.co/?key=mga4jhuvmwyyvt"
 	method := "GET"
 	client := &http.Client{}
 	payload := strings.NewReader("")
@@ -31,13 +33,20 @@ func IPLookUPCall() bool {
 		fmt.Println(err)
 	}
 	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("Authorization", "Bearer key3456789876545678")
+	//req.Header.Add("Authorization", "Bearer key3456789876545678")
 
 	res, err := client.Do(req)
 	defer res.Body.Close()
 	body, err := ioutil.ReadAll(res.Body)
 
 	fmt.Println(string(body))
+
+	json, err := json.MarshalIndent(string(body), "", "\t")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(string(json))
 	return true
 }
 
