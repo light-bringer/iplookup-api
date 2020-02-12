@@ -10,19 +10,19 @@ import (
 	"strings"
 )
 
-//export CallIPLookup
-func CallIPLookup(IPAddress *C.char) *C.char {
+//export IsValidEnvironment
+func IsValidEnvironment(IPAddress *C.char) bool {
 	// this is an exportable funciton
 	/*
 		this is a comment
 	*/
 	fmt.Println(C.GoString(IPAddress))
-	return IPAddress
+	return *C.
 
 }
 
 func IPLookUPCall() bool {
-
+	authToken := "Bearer key3456789876545678"
 	url := "https://api.ipregistry.co/?key=mga4jhuvmwyyvt"
 	method := "GET"
 	client := &http.Client{}
@@ -33,7 +33,7 @@ func IPLookUPCall() bool {
 		fmt.Println(err)
 	}
 	req.Header.Add("Content-Type", "application/json")
-	//req.Header.Add("Authorization", "Bearer key3456789876545678")
+	req.Header.Add("Authorization", authToken)
 
 	res, err := client.Do(req)
 	defer res.Body.Close()
