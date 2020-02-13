@@ -68,6 +68,8 @@ func IsValidEnvironment() C.int {
 		fmt.Println(errors)
 	}
 
+	fmt.Println(JsonStore)
+
 	if JsonStore.Data.Valid_host == true {
 		return 1
 	} else {
